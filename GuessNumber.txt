@@ -1,52 +1,133 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+program:
 
-int main() {
-    // Seed for generating random numbers
-    srand(time(0));
+//By SHRUTI GODSE
 
-    // Generate a random number between 1 and 100
-    int randomNumber = rand() % 100 + 1;
+import java.util.Random;
+import java.util.Scanner;
 
-    // Variables for user input and the user's guess
-    int guess, attempts = 0;
+public class NumberGuessGame {
+    private static final int MIN_RANGE = 1;
+    private static final int MAX_RANGE = 100;
+    private static final int MAX_ATTEMPTS = 10;
+    private static final int MAX_ROUNDS = 3;
 
-    // Main loop
-    do {
-        // Ask the user to guess the number
-        std::cout << "Guess the number (between 1 and 100): ";
-        std::cin >> guess;
+    public static void main(String[] args) {
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
+        int totalScore = 0;
 
-        // Increment the attempts counter
-        attempts++;
+        System.out.println("NUMBER GUESSING GAME!!!");
+        System.out.println("Total Number Of Rounds : 3");
+        System.out.println("Attempts To Guess Number In Each Round : 10\n");
+        for (int i = 1; i <= MAX_ROUNDS; i++) {
+            int number = random.nextInt(MAX_RANGE) + MIN_RANGE;
+            int attempts = 0;
 
-        // Provide feedback on the guess
-        if (guess == randomNumber) {
-            std::cout << "Congratulations! You guessed the correct number in " << attempts << " attempts.\n";
-        } else if (guess < randomNumber) {
-            std::cout << "Too low. Try again!\n";
-        } else {
-            std::cout << "Too high. Try again!\n";
+            System.out.printf("Round %d: Guess the number between %d and %d in %d attempts.\n", i, MIN_RANGE, MAX_RANGE,
+                    MAX_ATTEMPTS);
+            while (attempts < MAX_ATTEMPTS) {
+                System.out.println("Enter your guess : ");
+                int guess_number = scanner.nextInt();
+                attempts = attempts + 1;
+
+                if (guess_number == number) {
+                    int score = MAX_ATTEMPTS - attempts;
+                    totalScore = totalScore + score;
+                    System.out.printf("Hurray! Number Guessed Successfully. Attempts = %d. Round Score = %d\n",
+                            attempts, score);
+                    break;
+                }
+
+                else if (guess_number < number) {
+                    System.out.printf("The number is greater than %d. Attempts Left = %d.\n", guess_number,
+                            MAX_ATTEMPTS - attempts);
+                }
+
+                else if (guess_number > number) {
+                    System.out.printf("The number is less than %d. Attempts Left = %d.\n", guess_number,
+                            MAX_ATTEMPTS - attempts);
+                }
+
+            }
+
+            if (attempts == MAX_ATTEMPTS) {
+                System.out.printf("\nRound = %d\n", i);
+                System.out.println("Attempts = 0");
+                System.out.printf("The Random Number Is : %d\n\n", number);
+            }
         }
-
-    } while (guess != randomNumber);
-
-    return 0;
+        System.out.printf("Game Over. Total Score = %d\n", totalScore);
+        scanner.close();
+    }
 }
 
-Output:
+output:
 
-Guess the number (between 1 and 100): 55
-Too high. Try again!
-Guess the number (between 1 and 100): 40
-Too high. Try again!
-Guess the number (between 1 and 100): 30
-Too high. Try again!
-Guess the number (between 1 and 100): 10
-Too low. Try again!
-Guess the number (between 1 and 100): 15
-Congratulations! You guessed the correct number in 5 attempts.
+PS C:\Users\Shruti\Desktop\c&c++> javac NumberGuessGame.java
+PS C:\Users\Shruti\Desktop\c&c++> java NumberGuessGame      
+NUMBER GUESSING GAME!!!
+Total Number Of Rounds : 3
+Attempts To Guess Number In Each Round : 10
 
-This C++ program is similar to the C version but uses std::cout for output and std::cin for input. The logic and flow of the program remain the same. The srand(time(0)) line is used to seed the random number generator based on the current time, ensuring a different random number each time the program runs. The program then enters a loop where the user is prompted to guess the number, and feedback is provided based on whether the guess is too high, too low, or correct. The loop continues until the user guesses the correct number.
-
+Round 1: Guess the number between 1 and 100 in 10 attempts.
+Enter your guess : 
+45
+The number is less than 45. Attempts Left = 9.
+Enter your guess : 
+30
+The number is less than 30. Attempts Left = 8.
+Enter your guess : 
+25
+The number is less than 25. Attempts Left = 7.
+Enter your guess : 
+15
+The number is less than 15. Attempts Left = 6.
+Enter your guess : 
+5
+The number is less than 5. Attempts Left = 5.
+Enter your guess : 
+3
+The number is greater than 3. Attempts Left = 4.
+Enter your guess : 
+2
+The number is greater than 2. Attempts Left = 3.
+Enter your guess : 
+4
+Hurray! Number Guessed Successfully. Attempts = 8. Round Score = 2
+Round 2: Guess the number between 1 and 100 in 10 attempts.
+Enter your guess :
+50
+The number is greater than 50. Attempts Left = 9.
+Enter your guess :
+70
+The number is less than 70. Attempts Left = 8.
+Enter your guess :
+60
+Hurray! Number Guessed Successfully. Attempts = 3. Round Score = 7
+Round 3: Guess the number between 1 and 100 in 10 attempts.
+Enter your guess :
+55
+The number is greater than 55. Attempts Left = 9.
+Enter your guess :
+90
+The number is less than 90. Attempts Left = 8.
+Enter your guess :
+80
+The number is less than 80. Attempts Left = 7.
+Enter your guess :
+75
+The number is less than 75. Attempts Left = 6.
+Enter your guess :
+65
+The number is greater than 65. Attempts Left = 5.
+Enter your guess :
+66
+The number is greater than 66. Attempts Left = 4.
+Enter your guess :
+70
+The number is less than 70. Attempts Left = 3.
+Enter your guess :
+68
+Hurray! Number Guessed Successfully. Attempts = 8. Round Score = 2
+Game Over. Total Score = 11
+PS C:\Users\Shruti\Desktop\c&c++>
